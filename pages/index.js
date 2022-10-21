@@ -1,13 +1,9 @@
-import Hero from "./Hero";
-import Navbar from "./Navbar";
-import Blog from "./Blog";
+import Hero from "./hero";
 
 export default function Home() {
   return (
     <>
-      <Navbar>
-        <Blog></Blog>
-      </Navbar>
+      <Hero></Hero>
     </>
   );
 }

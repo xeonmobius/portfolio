@@ -1,52 +1,39 @@
+import useSWR from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
 export default function Blog() {
+  const { data, error } = useSWR("http://127.0.0.1:1337/api/blogs", fetcher);
+
+  if (error)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-8xl raleway">Something went wrong...</h1>
+        <p>{error}</p>
+      </div>
+    );
+
+  if (!data)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-8xl raleway">loading...</h1>
+      </div>
+    );
+
   return (
-    <>
-      <div className="flex flex-col mx-96">
-        <div className="flex flex-row m-2 p-2">
-          <div className="px-2 my-auto">
-            <h4>3 Min</h4>
-            <h6>Mar 3rd, 2022</h6>
-          </div>
-          <div>
-            <h1 className="text-6xl">My First Blog Post about Something...</h1>
-            <p className="py-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-              pharetra ultricies nulla eleifend pellentesque. Donec efficitur
-              massa et venenatis bibendum. Vivamus euismod egestas est, non
-              blandit urna gravida non. Nullam sollicitudin justo sed porttitor
-              tincidunt. Nam pretium, augue quis maximus malesuada, erat diam
-              semper lorem, ut bibendum nisl odio commodo elit. Sed elementum
-              risus enim, non porttitor elit vehicula ut. Maecenas laoreet
-              tortor eu malesuada dignissim. Proin eget massa sit amet nunc
-              dapibus luctus nec eu mi. Morbi nec ex lorem. Vestibulum porttitor
-              ut velit viverra consequat. Praesent id erat velit. Duis lacinia
-              posuere tincidunt. Sed nisl justo, sagittis at.
-            </p>
-          </div>
+    <div className="flex flex-col xl:mx-96 md:mx-36">
+      <div className="flex flex-row my-2 py-2">
+        <div className="basis-1/12 my-auto">
+          <h4>3 Min</h4>
+          <h6>Mar 3rd, 2022</h6>
         </div>
-        <div className="flex flex-row m-2 p-2">
-          <div className="px-2 my-auto">
-            <h4>3 Min</h4>
-            <h6>Mar 3rd, 2022</h6>
-          </div>
-          <div>
-            <h1 className="text-6xl">My second Blog Post about Something...</h1>
-            <p className="py-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-              pharetra ultricies nulla eleifend pellentesque. Donec efficitur
-              massa et venenatis bibendum. Vivamus euismod egestas est, non
-              blandit urna gravida non. Nullam sollicitudin justo sed porttitor
-              tincidunt. Nam pretium, augue quis maximus malesuada, erat diam
-              semper lorem, ut bibendum nisl odio commodo elit. Sed elementum
-              risus enim, non porttitor elit vehicula ut. Maecenas laoreet
-              tortor eu malesuada dignissim. Proin eget massa sit amet nunc
-              dapibus luctus nec eu mi. Morbi nec ex lorem. Vestibulum porttitor
-              ut velit viverra consequat. Praesent id erat velit. Duis lacinia
-              posuere tincidunt. Sed nisl justo, sagittis at.
-            </p>
-          </div>
+        <div className="basis-11/12">
+          <h1 className="text-6xl">{data["data"][0]["attributes"]["title"]}</h1>
+          <p className="py-2 text-justify">
+            {data["data"][0]["attributes"]["post"]}
+          </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

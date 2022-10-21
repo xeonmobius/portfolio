@@ -1,27 +1,37 @@
+import Image from "next/future/image";
+import profilePic from "../public/me.jpg";
+import Link from "next/link";
+
 export default function Hero() {
   return (
-    <div className="grid grid-cols-2 h-screen mx-96">
-      <div className="px-2">
-        <h1 className="text-8xl raleway my-3">
+    <div className="grid xl:grid-cols-2 grid-flow-row h-screen xl:mx-96 md:mx-36 lg:grid-cols-1">
+      <div className="h-[50vh]">
+        <h1 className="text-8xl  raleway my-3">
           Shannon <br></br> Chowdhury
         </h1>
         <p className="raleway my-3 text-lg">
           I am a developer based in Toronto. I help clients build complex,
           beautiful and responsive websites.
         </p>
-        <button className="bg-black text-white text-lg px-4 py-1.5">Lets meet</button>
+        <Link href="/contactMe">
+          <button className="bg-black text-white text-lg px-4 py-1.5">
+            Lets meet
+          </button>
+        </Link>
       </div>
-      <div className="bg-indigo-500 w-full">
+      <Image className="h-[50vh]" src={profilePic} alt="Pic of Shannon" />
+      <div className="bg-indigo-500 h-[50vh]">
         <p className="mt-3">Place Holder</p>
       </div>
-      <div className="bg-indigo-500 w-full">
-        <p className="mt-3">Place Holder</p>
-      </div>
-      <div className="px-2">
-        <h1 className="text-8xl raleway my-3">
+      <div className="xl:px-2 lg:px-0 h-[50vh]">
+        <h1 className="text-8xl  raleway my-3">
           Creative <br></br>Full <br></br>Stack <br></br>Developer
         </h1>
-        <button className="bg-black text-white text-lg px-4 py-1.5">See my work</button>
+        <Link href="/pastWork">
+          <button className="bg-black text-white text-lg px-4 py-1.5">
+            See my work
+          </button>
+        </Link>
       </div>
     </div>
   );

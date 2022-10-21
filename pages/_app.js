@@ -6,8 +6,9 @@ import "@fontsource/raleway";
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Navbar></Navbar>
-      <Component {...pageProps} />
+      <Navbar>
+        <Component {...pageProps} />
+      </Navbar>
     </>
   );
 }

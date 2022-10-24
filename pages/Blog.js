@@ -16,7 +16,7 @@ export default function Blog() {
   if (!data)
     return (
       <div className="flex justify-center items-center h-screen">
-        <h1 className="text-8xl raleway">loading...</h1>
+        <h1 className="text-8xl raleway">Loading...</h1>
       </div>
     );
 
@@ -29,9 +29,9 @@ export default function Blog() {
         </div>
         <div className="basis-11/12">
           <h1 className="text-6xl">{data["data"][0]["attributes"]["title"]}</h1>
-          <p className="py-2 text-justify">
+          <article className="py-2 text-justify prose lg:prose-xl">
             {data["data"][0]["attributes"]["post"]}
-          </p>
+          </article>
         </div>
       </div>
     </div>

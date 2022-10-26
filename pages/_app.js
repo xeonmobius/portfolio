@@ -1,14 +1,14 @@
 import "../styles/globals.css";
-import Navbar from "./navbar";
 import "@fontsource/dm-serif-display";
 import "@fontsource/raleway";
+import Layout from "./layout";
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Navbar>
+      <Layout>
         <Component {...pageProps} />
-      </Navbar>
+      </Layout>
     </>
   );
 }

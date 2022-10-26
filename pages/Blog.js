@@ -1,4 +1,6 @@
 import useSWR from "swr";
+import MarkdownRender from "./components/MarkdownRender";
+import Pagination from "./components/pagination";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -21,19 +23,18 @@ export default function Blog() {
     );
 
   return (
-    <div className="flex flex-col xl:mx-96 md:mx-36">
-      <div className="flex flex-row my-2 py-2">
-        <div className="basis-1/12 my-auto">
-          <h4>3 Min</h4>
-          <h6>Mar 3rd, 2022</h6>
-        </div>
-        <div className="basis-11/12">
-          <h1 className="text-6xl">{data["data"][0]["attributes"]["title"]}</h1>
-          <article className="py-2 text-justify prose lg:prose-xl">
-            {data["data"][0]["attributes"]["post"]}
-          </article>
-        </div>
+    <div>
+      <div className="flex flex-col xl:mx-96 md:mx-36 my-2 py-2">
+        {data["data"].map((data) => (
+          <div className="mb-24">
+            <MarkdownRender
+              content={data["attributes"]["post"]}
+            ></MarkdownRender>
+            <hr class="my-6 sm:mx-auto border-black lg:my-8" />
+          </div>
+        ))}
       </div>
+      <Pagination meta={data['meta']}></Pagination>
     </div>
   );
 }

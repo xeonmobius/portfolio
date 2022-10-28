@@ -14,7 +14,7 @@ export default function Hero() {
           beautiful and responsive websites.
         </p>
         <Link href="/contactMe">
-          <button className="bg-black text-white text-lg px-4 py-1.5">
+          <button className="bg-black text-white text-lg px-4 py-1.5 hover:bg-gray-700 active:bg-white active:text-black">
             Lets meet
           </button>
         </Link>
@@ -28,7 +28,7 @@ export default function Hero() {
           Creative <br></br>Full <br></br>Stack <br></br>Developer
         </h1>
         <Link href="/pastWork">
-          <button className="bg-black text-white text-lg px-4 py-1.5">
+          <button className="bg-black text-white text-lg px-4 py-1.5 hover:bg-gray-700 active:bg-white active:text-black">
             See my work
           </button>
         </Link>

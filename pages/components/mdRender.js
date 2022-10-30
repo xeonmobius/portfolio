@@ -1,6 +1,6 @@
 import md from "markdown-it";
 
-export default function MarkdownRender({ content }) {
+export default function MdRender({ content }) {
   const toHTML = md().render(content);
   return (
     <>

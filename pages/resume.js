@@ -1,4 +1,4 @@
-import MarkdownRender from "./components/markdownRender";
+import MdRender from "./components/mdRender";
 import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -30,10 +30,13 @@ export default function Resume() {
     );
 
   return (
-    <div className="flex flex-col xl:mx-96 md:mx-36 my-2 py-2">
-        <MarkdownRender
+    <div className="my-2 py-2 flex items-center justify-center">
+      <div className="text-justify flex flex-col">
+        <MdRender
+          className="w-[100vh]"
           content={data["data"][0]["attributes"]["content"]}
-        ></MarkdownRender>
+        ></MdRender>
+      </div>
     </div>
   );
 }

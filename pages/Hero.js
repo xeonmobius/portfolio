@@ -4,9 +4,9 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <div className="grid xl:grid-cols-2 grid-flow-row h-screen xl:mx-96 md:mx-36 lg:grid-cols-1">
+    <div className="grid xl:grid-cols-2 xl:mx-96 md:mx-36 lg:grid-cols-1">
       <div className="h-[50vh]">
-        <h1 className="text-8xl  raleway my-3">
+        <h1 className="text-8xl raleway my-3">
           Shannon <br></br> Chowdhury
         </h1>
         <p className="raleway my-3 text-lg">
@@ -24,7 +24,7 @@ export default function Hero() {
         <p className="mt-3">Place Holder</p>
       </div>
       <div className="xl:px-2 lg:px-0 h-[50vh]">
-        <h1 className="text-8xl  raleway my-3">
+        <h1 className="text-8xl raleway my-3">
           Creative <br></br>Full <br></br>Stack <br></br>Developer
         </h1>
         <Link href="/pastWork">

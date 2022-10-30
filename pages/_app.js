@@ -1,6 +1,8 @@
 import "../styles/globals.css";
+
 import "@fontsource/dm-serif-display";
 import "@fontsource/raleway";
+
 import Layout from "./layout";
 
 function MyApp({ Component, pageProps }) {

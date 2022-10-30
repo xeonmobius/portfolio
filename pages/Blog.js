@@ -1,11 +1,11 @@
 import useSWR from "swr";
-import MarkdownRender from "./components/MarkdownRender";
+import MdRender from "./components/mdRender";
 import Pagination from "./components/pagination";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Blog() {
-  const { data, error } = useSWR("http://127.0.0.1:1337/api/blogs", fetcher);
+  const { data, error } = useSWR("http://127.0.0.1:1337/api/blogs?pagination[page]=1&pagination[pageSize]=10", fetcher);
 
   if (error)
     return (
@@ -23,18 +23,17 @@ export default function Blog() {
     );
 
   return (
-    <div>
-      <div className="flex flex-col xl:mx-96 md:mx-36 my-2 py-2">
-        {data["data"].map((data) => (
-          <div className="mb-24">
-            <MarkdownRender
-              content={data["attributes"]["post"]}
-            ></MarkdownRender>
-            <hr class="my-6 sm:mx-auto border-black lg:my-8" />
-          </div>
-        ))}
+    <>
+      <div className="my-2 py-2 flex items-center justify-center">
+        <div className="flex flex-col text-justify">
+          {data["data"].map((data) => (
+            <div className="mb-24">
+              <MdRender content={data["attributes"]["post"]}></MdRender>
+            </div>
+          ))}
+        </div>
       </div>
-      <Pagination meta={data['meta']}></Pagination>
-    </div>
+      <Pagination meta={data["meta"]}></Pagination>
+    </>
   );
 }

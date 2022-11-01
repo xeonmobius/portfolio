@@ -4,6 +4,8 @@ import axios from "axios";
 export default function ContactMe() {
   const [myForm, setMyForm] = useState({ senderEmail: "", message: "" });
 
+  const [toast, setToast] = useState("");
+
   const onEmailChange = (e) => {
     e.preventDefault();
     setMyForm({ ...myForm, senderEmail: e.target.value });
@@ -29,11 +31,15 @@ export default function ContactMe() {
     };
 
     console.log("payload: ", payload);
-    const { data } = await axios.post(
+    const { data, status } = await axios.post(
       "http://localhost:1337/api/contact-messages",
       payload
     );
-    console.log(data);
+
+    if (status === 200) {
+      setMyForm({ senderEmail: "", message: "" });
+      setToast("success");
+    }
   };
 
   return (
@@ -48,6 +54,7 @@ export default function ContactMe() {
           type="email"
           id="email"
           onChange={(e) => onEmailChange(e)}
+          value={myForm.senderEmail}
           required
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
         ></input>
@@ -59,6 +66,7 @@ export default function ContactMe() {
           id="message"
           placeholder="Send me a general message and I will get back to you!"
           onChange={(e) => onMessageChange(e)}
+          value={myForm.message}
           required
         ></textarea>
         <button
@@ -69,6 +77,7 @@ export default function ContactMe() {
           Submit
         </button>
       </form>
+      {toast === "success" && <h1>Success!</h1>}
     </div>
   );
 }

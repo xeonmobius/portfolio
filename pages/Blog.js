@@ -1,11 +1,20 @@
 import useSWR from "swr";
 import MdRender from "./components/mdRender";
 import Pagination from "./components/pagination";
+import { useState } from "react";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const getPage = (page) => {
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+  return useSWR(
+    `http://127.0.0.1:1337/api/blogs?pagination[page]=${page}&pagination[pageSize]=${10}`,
+    fetcher
+  );
+};
 
 export default function Blog() {
-  const { data, error } = useSWR("http://127.0.0.1:1337/api/blogs?pagination[page]=1&pagination[pageSize]=10", fetcher);
+  const [page, setPage] = useState(1);
+  const { data, error } = getPage(page);
 
   if (error)
     return (
@@ -33,7 +42,7 @@ export default function Blog() {
           ))}
         </div>
       </div>
-      <Pagination meta={data["meta"]}></Pagination>
+      <Pagination meta={data["meta"]} setPage={setPage}></Pagination>
     </>
   );
 }

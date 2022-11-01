@@ -1,5 +1,3 @@
-import Image from 'next/future/image'
-
 export default function PastWork() {
   return (
     <div className="flex justify-center items-center h-screen">

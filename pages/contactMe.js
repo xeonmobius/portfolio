@@ -38,7 +38,13 @@ export default function ContactMe() {
 
     if (status === 200) {
       setMyForm({ senderEmail: "", message: "" });
-      setToast("success");
+      
+      setToast('success');
+
+      const timer = setTimeout(() => {
+        setToast('');
+      }, 3000);
+
     }
   };
 

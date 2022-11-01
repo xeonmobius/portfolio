@@ -37,7 +37,10 @@ export default function Blog() {
         <div className="flex flex-col text-justify">
           {data["data"].map((data) => (
             <div className="mb-24">
-              <MdRender content={data["attributes"]["post"]}></MdRender>
+              <MdRender
+                className="w-[100vh]"
+                content={data["attributes"]["post"]}
+              ></MdRender>
             </div>
           ))}
         </div>

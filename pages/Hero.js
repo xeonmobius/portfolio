@@ -19,20 +19,7 @@ export default function Hero() {
           </button>
         </Link>
       </div>
-      <Image className="h-[50vh]" src={profilePic} alt="Pic of Shannon" />
-      <div className="bg-indigo-500 h-[50vh]">
-        <p className="mt-3">Place Holder</p>
-      </div>
-      <div className="xl:px-2 lg:px-0 h-[50vh]">
-        <h1 className="text-8xl raleway my-3">
-          Creative <br></br>Full <br></br>Stack <br></br>Developer
-        </h1>
-        <Link href="/pastWork">
-          <button className="bg-black text-white text-lg px-4 py-1.5 hover:bg-gray-700 active:bg-white active:text-black">
-            See my work
-          </button>
-        </Link>
-      </div>
+      <Image className="object-contain" src={profilePic} alt="Pic of Shannon" />
     </div>
   );
 }

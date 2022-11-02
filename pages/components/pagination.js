@@ -1,17 +1,17 @@
-import next from "next";
-import useSWR from "swr";
-
 export default function Pagination({ meta, setPage }) {
   const currentPage = meta["pagination"]["page"];
   const pageCount = meta["pagination"]["pageCount"];
 
   let pages = [currentPage] || [];
 
-  for (let i = 1; i < 3; i++) {
+  let j = 3
+  for (let i = 1; i < j; i++) {
     if (currentPage - i > 0) {
+      j = j + 1
       pages.unshift(currentPage - i);
     }
     if (currentPage + i < pageCount) {
+      j = j + 1
       pages.push(currentPage + i);
     }
   }
@@ -31,16 +31,16 @@ export default function Pagination({ meta, setPage }) {
   return (
     <nav>
       <ul class="flex flex-row justify-center raleway my-2 py-2">
-        <li className="py-2 px-3 ml-0 leading-tight" onClick={() => previousPage()}>Previous</li>
+        <li className="py-2 px-3 ml-0 leading-tight hover:cursor-pointer hover:underline" onClick={() => previousPage()}>Previous</li>
         {pages.map((page) => (
           <li
-            className="py-2 px-3 ml-0 leading-tight"
+            className="py-2 px-3 ml-0 leading-tight hover:cursor-pointer hover:underline"
             onClick={() => setPage(page)}
           >
             {page}
           </li>
         ))}
-        <li className="py-2 px-3 ml-0 leading-tight" onClick={() => nextPage()}>
+        <li className="py-2 px-3 ml-0 leading-tight hover:cursor-pointer hover:underline" onClick={() => nextPage()}>
           Next
         </li>
       </ul>

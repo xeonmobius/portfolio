@@ -1,9 +1,26 @@
 import { useState } from "react";
 import axios from "axios";
+import Toast from "./components/toast";
+
+const validateMessage = (message) => {
+  return message.length > 49;
+};
+
+const validateEmail = (email) => {
+  // regex to validate 99.99% email format
+  const regex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+  return regex.test(email);
+};
+
+const createToast = (duration, type, setToast) => {
+  setToast(type);
+  const timer = setTimeout(() => {
+    setToast("");
+  }, duration);
+};
 
 export default function ContactMe() {
   const [myForm, setMyForm] = useState({ senderEmail: "", message: "" });
-
   const [toast, setToast] = useState("");
 
   const onEmailChange = (e) => {
@@ -19,7 +36,13 @@ export default function ContactMe() {
   const submitClicked = async (e) => {
     e.preventDefault();
 
-    if (myForm.senderEmail === "" || myForm.message === "") {
+    if (
+      myForm.senderEmail === "" ||
+      myForm.message === "" ||
+      !validateMessage(myForm.message) ||
+      !validateEmail(myForm.senderEmail)
+    ) {
+      createToast(2000, "error", setToast);
       return;
     }
 
@@ -30,7 +53,6 @@ export default function ContactMe() {
       },
     };
 
-    console.log("payload: ", payload);
     const { data, status } = await axios.post(
       "http://localhost:1337/api/contact-messages",
       payload
@@ -38,13 +60,7 @@ export default function ContactMe() {
 
     if (status === 200) {
       setMyForm({ senderEmail: "", message: "" });
-      
-      setToast('success');
-
-      const timer = setTimeout(() => {
-        setToast('');
-      }, 3000);
-
+      createToast(2000, "success", setToast);
     }
   };
 
@@ -83,7 +99,18 @@ export default function ContactMe() {
           Submit
         </button>
       </form>
-      {toast === "success" && <h1>Success!</h1>}
+      {toast === "success" && (
+        <Toast
+          type="success"
+          message={"Your email was successfully sent!"}
+        ></Toast>
+      )}
+      {toast === "error" && (
+        <Toast
+          type="error"
+          message={"Invalid data, please check your email and message."}
+        ></Toast>
+      )}
     </div>
   );
 }

@@ -19,7 +19,7 @@ const createToast = (duration, type, setToast) => {
   }, duration);
 };
 
-export default function ContactMe() {
+export default function ContactMe({ STRAPI_URL }) {
   const [myForm, setMyForm] = useState({ senderEmail: "", message: "" });
   const [toast, setToast] = useState("");
 
@@ -54,7 +54,7 @@ export default function ContactMe() {
     };
 
     const { data, status } = await axios.post(
-      `${process.env.STRAPI_URL}contact-messages`,
+      `${STRAPI_URL}contact-messages`,
       payload
     );
 
@@ -113,4 +113,14 @@ export default function ContactMe() {
       )}
     </div>
   );
+}
+
+
+export async function getServerSideProps() {
+  console.log(process.env.STRAPI_URL)
+  return {
+    props: {
+      STRAPI_URL: process.env.STRAPI_URL
+    }
+  }
 }

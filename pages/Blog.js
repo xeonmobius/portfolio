@@ -3,16 +3,17 @@ import MdRender from "./components/mdRender";
 import Pagination from "./components/pagination";
 import { useState } from "react";
 
-const getPage = (page) => {
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+export default function Blog({STRAPI_URL}) {
 
-  return useSWR(
-    `http://127.0.0.1:1337/api/blogs?pagination[page]=${page}&pagination[pageSize]=${10}`,
-    fetcher
-  );
-};
-
-export default function Blog() {
+  const getPage = (page) => {
+    const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  
+    return useSWR(
+      `${STRAPI_URL}blogs?pagination[page]=${page}&pagination[pageSize]=${10}`,
+      fetcher
+    );
+  };
+  
   const [page, setPage] = useState(1);
   const { data, error } = getPage(page);
 
@@ -48,4 +49,12 @@ export default function Blog() {
       <Pagination meta={data["meta"]} setPage={setPage}></Pagination>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  return {
+    props: {
+      STRAPI_URL: process.env.STRAPI_URL
+    }
+  }
 }

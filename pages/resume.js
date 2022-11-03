@@ -3,9 +3,9 @@ import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-export default function Resume() {
+export default function Resume({STRAPI_URL}) {
   const { data, error } = useSWR(
-    "http://127.0.0.1:1337/api/resume-contents",
+    `${STRAPI_URL}resume-contents`,
     fetcher,
     {
       onSuccess: (data, key, config) => {
@@ -39,4 +39,12 @@ export default function Resume() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  return {
+    props: {
+      STRAPI_URL: process.env.STRAPI_URL
+    }
+  }
 }

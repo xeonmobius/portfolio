@@ -54,7 +54,7 @@ export default function ContactMe() {
     };
 
     const { data, status } = await axios.post(
-      "http://localhost:1337/api/contact-messages",
+      `${process.env.STRAPI_URL}contact-messages`,
       payload
     );
 

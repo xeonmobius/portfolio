@@ -1,18 +1,25 @@
-import MdRender from "./components/mdRender";
+import MdRender from "../components/mdRender";
 import useSWR from "swr";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+export default function Resume({ STRAPI_URL }) {
+  const fetcher = async (url) => {
+    const res = await fetch(url);
 
-export default function Resume({STRAPI_URL}) {
-  const { data, error } = useSWR(
-    `${STRAPI_URL}resume-contents`,
-    fetcher,
-    {
-      onSuccess: (data, key, config) => {
-        console.log("Successful pull of resume section");
-      },
+    if (!res.ok) {
+      const error = new Error("An error occurred while fetching the data.");
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
     }
-  );
+
+    return res.json();
+  };
+
+  const { data, error } = useSWR(`${STRAPI_URL}resume-contents`, fetcher, {
+    onSuccess: (data, key, config) => {
+      console.log("Successful pull of resume section");
+    },
+  });
 
   if (error)
     return (
@@ -44,7 +51,7 @@ export default function Resume({STRAPI_URL}) {
 export async function getServerSideProps() {
   return {
     props: {
-      STRAPI_URL: process.env.STRAPI_URL
-    }
-  }
+      STRAPI_URL: process.env.STRAPI_URL,
+    },
+  };
 }

@@ -1,21 +1,28 @@
 import useSWR from "swr";
-import MdRender from "./components/mdRender";
-import Pagination from "./components/pagination";
+import MdRender from "../components/mdRender";
+import Pagination from "../components/pagination";
 import { useState } from "react";
 
-export default function Blog({STRAPI_URL}) {
+export default function Blog({ STRAPI_URL }) {
+  const fetcher = async url => {
+    const res = await fetch(url)
 
-  const getPage = (page) => {
-    const fetcher = (...args) => fetch(...args).then((res) => res.json());
+    if (!res.ok) {
+      const error = new Error('An error occurred while fetching the data.')
+      error.info = await res.json()
+      error.status = res.status
+      throw error
+    }
   
-    return useSWR(
-      `${STRAPI_URL}blogs?pagination[page]=${page}&pagination[pageSize]=${10}`,
-      fetcher
-    );
-  };
+    return res.json()
+  }
   
+
   const [page, setPage] = useState(1);
-  const { data, error } = getPage(page);
+  const { data, error } = useSWR(
+    `${STRAPI_URL}blogs?pagination[page]=${page}&pagination[pageSize]=${10}`,
+    fetcher
+  );
 
   if (error)
     return (
@@ -37,7 +44,7 @@ export default function Blog({STRAPI_URL}) {
       <div className="my-2 py-2 flex items-center justify-center">
         <div className="flex flex-col text-justify">
           {data["data"].map((data) => (
-            <div className="mb-24">
+            <div className="mb-24"  key={data["id"]}>
               <MdRender
                 className="w-[100vh]"
                 content={data["attributes"]["post"]}
@@ -54,7 +61,7 @@ export default function Blog({STRAPI_URL}) {
 export async function getServerSideProps() {
   return {
     props: {
-      STRAPI_URL: process.env.STRAPI_URL
-    }
-  }
+      STRAPI_URL: process.env.STRAPI_URL,
+    },
+  };
 }

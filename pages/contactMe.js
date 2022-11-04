@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import Toast from "./components/toast";
+import Toast from "../components/toast";
 
 const validateMessage = (message) => {
   return message.length > 49;
@@ -115,9 +115,7 @@ export default function ContactMe({ STRAPI_URL }) {
   );
 }
 
-
 export async function getServerSideProps() {
-  console.log(process.env.STRAPI_URL)
   return {
     props: {
       STRAPI_URL: process.env.STRAPI_URL

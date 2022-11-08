@@ -1,7 +1,7 @@
 import MdRender from "../components/mdRender";
 import useSWR from "swr";
 
-export default function Resume({ STRAPI_URL }) {
+export default function Resume({ STRAPI_URL_RESUME}) {
   const fetcher = async (url) => {
     const res = await fetch(url);
 
@@ -15,7 +15,7 @@ export default function Resume({ STRAPI_URL }) {
     return res.json();
   };
 
-  const { data, error } = useSWR(`${STRAPI_URL}resume-contents`, fetcher, {
+  const { data, error } = useSWR(`${STRAPI_URL_RESUME}`, fetcher, {
     onSuccess: (data, key, config) => {
       console.log("Successful pull of resume section");
     },
@@ -41,7 +41,7 @@ export default function Resume({ STRAPI_URL }) {
       <div className="text-justify flex flex-col">
         <MdRender
           className="w-[100vh]"
-          content={data["data"][0]["attributes"]["content"]}
+          content={data["data"][0]["attributes"]["resume"]}
         ></MdRender>
       </div>
     </div>
@@ -51,7 +51,7 @@ export default function Resume({ STRAPI_URL }) {
 export async function getServerSideProps() {
   return {
     props: {
-      STRAPI_URL: process.env.STRAPI_URL,
+      STRAPI_URL_RESUME: process.env.STRAPI_URL_RESUME,
     },
   };
 }

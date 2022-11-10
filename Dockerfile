@@ -37,6 +37,9 @@ WORKDIR /app
 ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
+ENV STRAPI_URL_RESUME=http://localhost:1337/api/resumes
+ENV STRAPI_URL_BLOG=http://localhost:1337/api/blogs
+ENV STRAPI_URL_CONTACT=http://localhost:1337/api/contacts
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs

@@ -23,7 +23,7 @@ COPY . .
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
-# ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN yarn build
 
@@ -36,7 +36,7 @@ WORKDIR /app
 
 ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
-# ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED 1
 ENV STRAPI_URL_RESUME=http://localhost:1337/api/resumes
 ENV STRAPI_URL_BLOG=http://localhost:1337/api/blogs
 ENV STRAPI_URL_CONTACT=http://localhost:1337/api/contacts

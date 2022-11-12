@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <nav className="bg-white sticky py-2 w-full top-0 left-0 border-b border-black">
       <div className="flex flex-wrap justify-between items-center xl:mx-96 md:mx-36">
-        <Link href="/hero">
+        <Link href="/">
           <p className="brand hover:cursor-pointer hover:underline text-4xl font-semibold whitespace-nowrap">
             Shannon Chowdhury
           </p>

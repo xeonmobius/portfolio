@@ -25,7 +25,7 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href="/blog" className="py-2 px-4">
+            <Link href="/Blog" className="py-2 px-4">
               <p className="hover:cursor-pointer hover:underline text-black">
                 Blog
               </p>
